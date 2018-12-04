@@ -5,8 +5,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +28,9 @@ public class Tela_Edit_Ficha extends AppCompatActivity {
         //BD
         bdHandler = new BDHandler(getApplicationContext());
         bd = bdHandler.getReadableDatabase();
+        txt_nome = findViewById(R.id.edit_nome);
+        txt_vezes = findViewById(R.id.edit_vezes);
+        btt_add_atividade = findViewById(R.id.btnSave);
 
         extras = getIntent().getExtras();
         if(extras!=null){
@@ -51,7 +54,7 @@ public class Tela_Edit_Ficha extends AppCompatActivity {
 
 
         //Query para pegar as atividades da ficha; deve se colocar o resultado em uma lista!
-        Cursor c = bd.rawQuery("SELECT a.id,a.nome FROM ficha_atividade fa,atividade a " +
+        @SuppressLint("Recycle") Cursor c = bd.rawQuery("SELECT a.id,a.nome FROM ficha_atividade fa,atividade a " +
                 "WHERE fa.id_ficha="+extras.getInt("id", -1)+" AND a.id = fa.id_ficha",null);
         if (c.moveToFirst()){
             do {
