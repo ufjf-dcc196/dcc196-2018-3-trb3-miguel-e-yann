@@ -16,10 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Tela_Criar_Ficha" />
-        <activity android:name=".Tela_Adcionar_Atividade" />
+        <activity android:name=".Criar_Ficha" />
+        <activity android:name=".Criar_Atividade" />
         <activity android:name=".Tela_Edit_Ficha" />
-        <activity android:name=".Tela_Selecionar_Atividade"></activity>
+        <activity android:name=".Listar_Atividades" />
+        <activity android:name=".Adicionar_atividade_ficha"></activity>
     </application>
 
 </manifest>

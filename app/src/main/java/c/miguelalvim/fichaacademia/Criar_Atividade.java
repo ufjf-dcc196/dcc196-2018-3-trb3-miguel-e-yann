@@ -3,14 +3,14 @@ package c.miguelalvim.fichaacademia;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class Tela_Adcionar_Atividade extends AppCompatActivity {
+public class Criar_Atividade extends AppCompatActivity {
     Button btt_salvar;
     EditText txt_nome,txt_numero;
 
@@ -20,7 +20,7 @@ public class Tela_Adcionar_Atividade extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tela__adcionar__atividade);
+        setContentView(R.layout.activity_criar_atividade);
 
         //Botões
         btt_salvar = findViewById(R.id.btt_salvar);
@@ -45,10 +45,10 @@ public class Tela_Adcionar_Atividade extends AppCompatActivity {
                 if(id_ficha_criada!=-1) {
                     result.putExtra("id_atividade", id_ficha_criada);
                     setResult(RESULT_OK, result);
-                    Toast.makeText(Tela_Adcionar_Atividade.this, "Adição da atividade concluida com exito", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Criar_Atividade.this, "Adição da atividade concluida com exito", Toast.LENGTH_SHORT).show();
                 }else{
                     setResult(RESULT_CANCELED, null);
-                    Toast.makeText(Tela_Adcionar_Atividade.this, "Falha na criação da atividade", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Criar_Atividade.this, "Falha na criação da atividade", Toast.LENGTH_SHORT).show();
                 }
                 finish();
             }

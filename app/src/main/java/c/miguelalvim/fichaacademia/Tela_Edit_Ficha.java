@@ -1,7 +1,6 @@
 package c.miguelalvim.fichaacademia;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -45,7 +44,7 @@ public class Tela_Edit_Ficha extends AppCompatActivity {
         btt_add_atividade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Tela_Edit_Ficha.this,Tela_Selecionar_Atividade.class);
+                Intent intent = new Intent(Tela_Edit_Ficha.this, Listar_Atividades.class);
                 intent.putExtra("id", extras.getInt("id", -1));
                 startActivityForResult(intent,0);//Request code 0 = atividade selecionada
             }
@@ -70,9 +69,9 @@ public class Tela_Edit_Ficha extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch(requestCode) {
             case 0 :{//Nova Atividade selecionada
-                if (resultCode == Activity.RESULT_OK){
+                //if (resultCode == Activity.RESULT_OK){
 
-                }
+                //}
             }break;
         }
     }

@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
-public class Tela_Selecionar_Atividade extends AppCompatActivity {
+public class Listar_Atividades extends AppCompatActivity {
     Button criar_atividade;
     BDHandler bdHandler;
     SQLiteDatabase bd;
@@ -38,7 +38,7 @@ public class Tela_Selecionar_Atividade extends AppCompatActivity {
         criar_atividade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Tela_Selecionar_Atividade.this, Tela_Adcionar_Atividade.class);
+                Intent intent = new Intent(Listar_Atividades.this, Criar_Atividade.class);
                 startActivityForResult(intent, 1);
             }
         });

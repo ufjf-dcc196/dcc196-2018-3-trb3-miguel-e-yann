@@ -3,15 +3,14 @@ package c.miguelalvim.fichaacademia;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class Tela_Criar_Ficha extends AppCompatActivity {
+public class Criar_Ficha extends AppCompatActivity {
     Button btt_salvar;
     EditText txt_nome, txt_vezes;
 
@@ -45,10 +44,10 @@ public class Tela_Criar_Ficha extends AppCompatActivity {
                 if(id_ficha_criada!=-1) {
                     result.putExtra("id_ficha", id_ficha_criada);
                     setResult(RESULT_OK, result);
-                    Toast.makeText(Tela_Criar_Ficha.this, "Criação da ficha concluida com exito", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Criar_Ficha.this, "Criação da ficha concluida com exito", Toast.LENGTH_SHORT).show();
                 }else{
                     setResult(RESULT_CANCELED, null);
-                    Toast.makeText(Tela_Criar_Ficha.this, "Falha na criação da ficha", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Criar_Ficha.this, "Falha na criação da ficha", Toast.LENGTH_SHORT).show();
                 }
                 finish();
             }

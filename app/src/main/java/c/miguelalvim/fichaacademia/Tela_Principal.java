@@ -30,14 +30,14 @@ public class Tela_Principal extends AppCompatActivity {
         btt_Criar_Ficha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Tela_Principal.this,Tela_Criar_Ficha.class);
+                Intent intent = new Intent(Tela_Principal.this, Criar_Ficha.class);
                 startActivityForResult(intent,0);//Request code 0 = cadastro de ficha
             }
         });
         btt_atividade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Tela_Principal.this, Tela_Selecionar_Atividade.class);
+                Intent intent = new Intent(Tela_Principal.this, Listar_Atividades.class);
                 startActivityForResult(intent, 1);
             }
         });
