@@ -18,7 +18,6 @@
         </activity>
         <activity android:name=".Tela_Criar_Ficha" />
         <activity android:name=".Tela_Adcionar_Atividade" />
-        <activity android:name=".Tela_Selecionar_Ficha" />
         <activity android:name=".Tela_Edit_Ficha" />
         <activity android:name=".Tela_Selecionar_Atividade"></activity>
     </application>

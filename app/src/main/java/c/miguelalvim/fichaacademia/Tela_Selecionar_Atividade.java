@@ -1,12 +1,15 @@
 package c.miguelalvim.fichaacademia;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 
 public class Tela_Selecionar_Atividade extends AppCompatActivity {
-
+    Button criar_atividade;
     BDHandler bdHandler;
     SQLiteDatabase bd;
 
@@ -14,6 +17,8 @@ public class Tela_Selecionar_Atividade extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela__selecionar__atividade);
+        criar_atividade = findViewById(R.id.criar_atividade);
+
 
         //BD
         bdHandler = new BDHandler(getApplicationContext());
@@ -30,6 +35,13 @@ public class Tela_Selecionar_Atividade extends AppCompatActivity {
 
             } while (c.moveToNext());
         }
+        criar_atividade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Tela_Selecionar_Atividade.this, Tela_Adcionar_Atividade.class);
+                startActivityForResult(intent, 1);
+            }
+        });
         //Adicionar aqui o código de seleção da atividade
         //Retornar o id da atividade selecionada
     }

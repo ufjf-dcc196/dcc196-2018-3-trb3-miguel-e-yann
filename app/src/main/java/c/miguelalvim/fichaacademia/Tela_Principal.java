@@ -2,13 +2,13 @@ package c.miguelalvim.fichaacademia;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
 public class Tela_Principal extends AppCompatActivity {
-    Button btt_Criar_Ficha,btt_Abrir_Ficha,btt_atividade;
+    Button btt_Criar_Ficha, btt_atividade;
 
     BDHandler bdHandler;
     SQLiteDatabase bd;
@@ -20,8 +20,7 @@ public class Tela_Principal extends AppCompatActivity {
 
         //Botões
         btt_Criar_Ficha = findViewById(R.id.btt_Criar_Ficha);
-        btt_Abrir_Ficha = findViewById(R.id.btt_Abrir_Ficha);
-        btt_atividade = findViewById(R.id.btt_atividade);
+        btt_atividade = findViewById(R.id.listar_act);
 
         //Iniciando o Banco de Dados
         bdHandler = new BDHandler(getApplicationContext());
@@ -33,6 +32,13 @@ public class Tela_Principal extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Tela_Principal.this,Tela_Criar_Ficha.class);
                 startActivityForResult(intent,0);//Request code 0 = cadastro de ficha
+            }
+        });
+        btt_atividade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Tela_Principal.this, Tela_Selecionar_Atividade.class);
+                startActivityForResult(intent, 1);
             }
         });
     }
