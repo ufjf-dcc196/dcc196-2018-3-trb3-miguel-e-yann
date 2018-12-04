@@ -5,9 +5,18 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class Tela_Principal extends AppCompatActivity {
+    ArrayList<Ficha> fichas = new ArrayList<>();
+    ArrayList<String> nomefichas = new ArrayList<>();
+    ArrayAdapter<String> aaFichasAdapter;
+    ListView lsFichasView;
     Button btt_Criar_Ficha, btt_atividade;
 
     BDHandler bdHandler;
@@ -17,6 +26,12 @@ public class Tela_Principal extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela__principal);
+
+        //Adapter
+        lsFichasView = findViewById(R.id.rc_listaFicha);
+        aaFichasAdapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, nomefichas);
+        lsFichasView.setAdapter(aaFichasAdapter);
+        aaFichasAdapter.notifyDataSetChanged();
 
         //Botões
         btt_Criar_Ficha = findViewById(R.id.btt_Criar_Ficha);
@@ -39,6 +54,14 @@ public class Tela_Principal extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Tela_Principal.this, Listar_Atividades.class);
                 startActivityForResult(intent, 1);
+            }
+        });
+        lsFichasView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(Tela_Principal.this, Tela_Edit_Ficha.class);
+                intent.putExtra("id", id);
+                startActivityForResult(intent, 2);//Request code 2 = tela de edição de ficha
             }
         });
     }

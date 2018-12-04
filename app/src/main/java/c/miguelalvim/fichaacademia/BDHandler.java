@@ -25,7 +25,7 @@ public class BDHandler extends SQLiteOpenHelper {
                         "nome TEXT, vezes_por_semana INTEGER)"
         );
         db.execSQL(
-                "CREATE TABLE ficha_atividade (id_atividade INTEGER, id_ficha INTEGER, " +
+                "CREATE TABLE ficha_atividade (id_atividade INTEGER, id_ficha INTEGER, num_repeticoes INTEGER, num_series INTEGER, " +
                         "FOREIGN KEY(id_atividade) REFERENCES atividade(id)," +
                         "FOREIGN KEY(id_ficha) REFERENCES ficha(id)," +
                         "PRIMARY KEY(id_atividade, id_ficha))"
