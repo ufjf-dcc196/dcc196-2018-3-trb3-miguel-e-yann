@@ -32,7 +32,7 @@ public class Tela_Principal extends AppCompatActivity {
         setContentView(R.layout.activity_tela__principal);
 
         //Adapter
-        lsFichasView = findViewById(R.id.rc_listaFicha);
+        lsFichasView = findViewById(R.id.lsListaFichas);
         aaFichasAdapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, nomefichas);
         lsFichasView.setAdapter(aaFichasAdapter);
         aaFichasAdapter.notifyDataSetChanged();

@@ -3,6 +3,7 @@ package c.miguelalvim.fichaacademia;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -20,11 +21,12 @@ public class Adicionar_atividade_ficha extends Activity {
     TextView num_rep, num_serie;
     BDHandler bdHandler;
     SQLiteDatabase bd;
-    ArrayList<Ficha> atividades = new ArrayList<>();
+    ArrayList<Integer> atividades = new ArrayList<>();
     ArrayList<String> nomeatividades = new ArrayList<>();
     ArrayAdapter<String> atividadesAdapter;
     ListView lsatividadesView;
-    long id_atv = -1;
+    int id_atv = -1;
+    int id_ficha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,19 @@ public class Adicionar_atividade_ficha extends Activity {
         adicionar = findViewById(R.id.btn_add);
         num_rep = findViewById(R.id.num_rep);
         num_serie = findViewById(R.id.num_serie);
-        lsatividadesView = findViewById(R.id.rc_listar_atividades);
+
+        id_ficha = getIntent().getExtras().getInt("id");
+        Cursor c = bd.rawQuery("SELECT a.id,a.name FROM atividade a WHERE NOT EXISTS " +
+                "(SELECT * FROM ficha f,ficha_atividade fa WHERE a.id=fa.id_atividade AND f.id=fa.id_ficha AND f.id=" + id_ficha + ")", null);
+        if (c.moveToFirst()) {
+            do {
+                int id = Integer.parseInt(c.getString(c.getColumnIndex("id")));
+                String nome = c.getString(c.getColumnIndex("name"));
+                nomeatividades.add(nome);
+                atividades.add(id);
+            } while (c.moveToNext());
+        }
+        lsatividadesView = findViewById(R.id.lsListaAtividades);
         atividadesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, nomeatividades);
         lsatividadesView.setAdapter(atividadesAdapter);
         atividadesAdapter.notifyDataSetChanged();
@@ -44,15 +58,13 @@ public class Adicionar_atividade_ficha extends Activity {
         lsatividadesView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                id_atv = id;
+                id_atv = atividades.get(position);
             }
         });
         adicionar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!num_rep.getText().toString().isEmpty() && !num_serie.getText().toString().isEmpty() && id_atv > -1) {
-                    Bundle extras = getIntent().getExtras();
-                    int id_ficha = extras.getInt("id");
+                if (!num_rep.getText().toString().isEmpty() && !num_serie.getText().toString().isEmpty() && id_atv != -1) {
                     Intent result = new Intent();
                     ContentValues vals = new ContentValues();
                     vals.put("num_repeticoes", num_serie.getText().toString());

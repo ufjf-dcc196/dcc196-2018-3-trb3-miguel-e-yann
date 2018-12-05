@@ -7,12 +7,21 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class Tela_Edit_Ficha extends AppCompatActivity {
     EditText txt_nome, txt_vezes;
     Button btt_add_atividade, btnSave;
+
+    ArrayList<Integer> atividades = new ArrayList<>();
+    ArrayList<String> nomeatividades = new ArrayList<>();
+    ArrayAdapter<String> atividadesAdapter;
+    ListView lsatividadesView;
 
     BDHandler bdHandler;
     SQLiteDatabase bd;
@@ -23,6 +32,11 @@ public class Tela_Edit_Ficha extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela__edit__ficha);
+
+        lsatividadesView = findViewById(R.id.lsListaAtvFicha);
+        atividadesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, nomeatividades);
+        lsatividadesView.setAdapter(atividadesAdapter);
+        atividadesAdapter.notifyDataSetChanged();
 
         //BD
         bdHandler = new BDHandler(getApplicationContext());
