@@ -12,7 +12,7 @@ import android.widget.EditText;
 
 public class Tela_Edit_Ficha extends AppCompatActivity {
     EditText txt_nome, txt_vezes;
-    Button btt_add_atividade;
+    Button btt_add_atividade, btnSave;
 
     BDHandler bdHandler;
     SQLiteDatabase bd;
@@ -29,7 +29,8 @@ public class Tela_Edit_Ficha extends AppCompatActivity {
         bd = bdHandler.getReadableDatabase();
         txt_nome = findViewById(R.id.edit_nome);
         txt_vezes = findViewById(R.id.edit_vezes);
-        btt_add_atividade = findViewById(R.id.btnSave);
+        btt_add_atividade = findViewById(R.id.btn_add_atividade);
+        btnSave = findViewById(R.id.btnSave);
 
         extras = getIntent().getExtras();
         if(extras!=null){
@@ -44,7 +45,7 @@ public class Tela_Edit_Ficha extends AppCompatActivity {
         btt_add_atividade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Tela_Edit_Ficha.this, Listar_Atividades.class);
+                Intent intent = new Intent(Tela_Edit_Ficha.this, Adicionar_atividade_ficha.class);
                 intent.putExtra("id", extras.getInt("id", -1));
                 startActivityForResult(intent,0);//Request code 0 = atividade selecionada
             }

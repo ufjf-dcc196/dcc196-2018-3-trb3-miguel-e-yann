@@ -37,10 +37,10 @@ public class BDHandler extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(
-                "DROP TABLE IF EXISTS pessoa"
+                "DROP TABLE IF EXISTS ficha"
         );
         db.execSQL(
-                "DROP TABLE IF EXISTS evento"
+                "DROP TABLE IF EXISTS atividade"
         );
         onCreate(db);
     }

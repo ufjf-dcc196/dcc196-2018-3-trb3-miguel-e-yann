@@ -35,21 +35,24 @@ public class Criar_Ficha extends AppCompatActivity {
         btt_salvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent result = new Intent();
-                ContentValues vals = new ContentValues();
+                if (!txt_nome.getText().toString().isEmpty() && !txt_vezes.getText().toString().isEmpty()) {
+                    Intent result = new Intent();
+                    ContentValues vals = new ContentValues();
                     vals.put("nome", txt_nome.getText().toString());
                     vals.put("vezes_por_semana", Integer.parseInt(txt_vezes.getText().toString()));
 
-                long id_ficha_criada = bd.insert("ficha", null, vals);
-                if(id_ficha_criada!=-1) {
-                    result.putExtra("id_ficha", id_ficha_criada);
-                    setResult(RESULT_OK, result);
-                    Toast.makeText(Criar_Ficha.this, "Criação da ficha concluida com exito", Toast.LENGTH_SHORT).show();
-                }else{
-                    setResult(RESULT_CANCELED, null);
-                    Toast.makeText(Criar_Ficha.this, "Falha na criação da ficha", Toast.LENGTH_SHORT).show();
-                }
-                finish();
+                    long id_ficha_criada = bd.insert("ficha", null, vals);
+                    if(id_ficha_criada!=-1) {
+                        result.putExtra("id_ficha", id_ficha_criada);
+                        setResult(RESULT_OK, result);
+                        Toast.makeText(Criar_Ficha.this, "Criação da ficha concluida com exito", Toast.LENGTH_SHORT).show();
+                    }else{
+                        setResult(RESULT_CANCELED, null);
+                        Toast.makeText(Criar_Ficha.this, "Falha na criação da ficha", Toast.LENGTH_SHORT).show();
+                    }
+                    finish();
+                } else
+                    Toast.makeText(Criar_Ficha.this, "Há dados não inseridos", Toast.LENGTH_SHORT).show();
             }
         });
     }
