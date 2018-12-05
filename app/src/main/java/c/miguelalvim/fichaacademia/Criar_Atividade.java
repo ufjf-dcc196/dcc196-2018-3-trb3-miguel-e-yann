@@ -26,8 +26,8 @@ public class Criar_Atividade extends AppCompatActivity {
         btt_salvar = findViewById(R.id.btt_salvar);
 
         //Edits
-        txt_nome = findViewById(R.id.txt_nome);
-        txt_numero = findViewById(R.id.txt_numero);
+        txt_nome = findViewById(R.id.txt_nome_atv);
+        txt_numero = findViewById(R.id.txt_numero_equip);
 
         //BD
         bdHandler = new BDHandler(getApplicationContext());
@@ -36,7 +36,7 @@ public class Criar_Atividade extends AppCompatActivity {
         btt_salvar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!txt_nome.getText().toString().isEmpty() && txt_numero.getText().toString().isEmpty()) {
+                if (!txt_nome.getText().toString().isEmpty() && !txt_numero.getText().toString().isEmpty()) {
                     Intent result = new Intent();
                     ContentValues vals = new ContentValues();
                     vals.put("nome", txt_nome.getText().toString());

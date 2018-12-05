@@ -29,7 +29,7 @@ public class Listar_Atividades extends AppCompatActivity {
         if (c.moveToFirst()) {
             do {
                 int id = Integer.parseInt(c.getString(c.getColumnIndex("id")));
-                String name = c.getString(c.getColumnIndex("nome"));
+                String nome = c.getString(c.getColumnIndex("nome"));
                 String cpf = c.getString(c.getColumnIndex("num_aparelho"));
                 //Adicionar aqui a aparte de população da lista
 

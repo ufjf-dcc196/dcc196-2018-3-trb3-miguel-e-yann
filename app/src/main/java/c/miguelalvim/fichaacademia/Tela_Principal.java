@@ -31,6 +31,11 @@ public class Tela_Principal extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela__principal);
 
+        //Iniciando o Banco de Dados
+        bdHandler = new BDHandler(getApplicationContext());
+        bd = bdHandler.getReadableDatabase();
+        updateNamesList();
+
         //Adapter
         lsFichasView = findViewById(R.id.lsListaFichas);
         aaFichasAdapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, nomefichas);
@@ -40,11 +45,6 @@ public class Tela_Principal extends AppCompatActivity {
         //Botões
         btt_Criar_Ficha = findViewById(R.id.btt_Criar_Ficha);
         btt_atividade = findViewById(R.id.listar_act);
-
-        //Iniciando o Banco de Dados
-        bdHandler = new BDHandler(getApplicationContext());
-        bd = bdHandler.getReadableDatabase();
-
 
         btt_Criar_Ficha.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,15 +75,15 @@ public class Tela_Principal extends AppCompatActivity {
         fichas.clear();
         nomefichas.clear();
 
-        @SuppressLint("Recycle") Cursor c = bd.rawQuery("SELECT * FROM ficha ", null);
+        @SuppressLint("Recycle") Cursor c = bd.rawQuery("SELECT * FROM ficha", null);
         if (c.moveToFirst()) {
             do {
                 int id = Integer.parseInt(c.getString(c.getColumnIndex("id")));
-                String name = c.getString(c.getColumnIndex("name"));
+                String nome = c.getString(c.getColumnIndex("nome"));
                 String vezes = c.getString(c.getColumnIndex("vezes_por_semana"));
-                Log.i("DABDAB", "Loaded Ficha(id=" + id + "): " + name + " |" + vezes);
-                fichas.add(new Ficha(name, Integer.parseInt(vezes), id));
-                nomefichas.add(name);
+                Log.i("DABDAB", "Loaded Ficha(id=" + id + "): " + nome + " |" + vezes);
+                fichas.add(new Ficha(nome, Integer.parseInt(vezes), id));
+                nomefichas.add(nome);
             } while (c.moveToNext());
         }
     }

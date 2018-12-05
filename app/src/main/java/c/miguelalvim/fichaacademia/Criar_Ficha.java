@@ -25,7 +25,7 @@ public class Criar_Ficha extends AppCompatActivity {
         btt_salvar = findViewById(R.id.btt_salvar);
 
         //Edits
-        txt_nome = findViewById(R.id.txt_nome);
+        txt_nome = findViewById(R.id.txt_nome_atv);
         txt_vezes = findViewById(R.id.txt_vezes);
 
         //BD

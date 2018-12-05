@@ -19,10 +19,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_numero" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_numero_equip" />
 
     <EditText
-        android:id="@+id/txt_nome"
+        android:id="@+id/txt_nome_atv"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -38,7 +38,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/txt_numero"
+        android:id="@+id/txt_numero_equip"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -54,6 +54,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_nome"
+        app:layout_constraintTop_toBottomOf="@+id/txt_nome_atv"
         app:layout_constraintVertical_bias="0.548" />
 </android.support.constraint.ConstraintLayout>

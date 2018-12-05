@@ -37,12 +37,12 @@ public class Adicionar_atividade_ficha extends Activity {
         num_serie = findViewById(R.id.num_serie);
 
         id_ficha = getIntent().getExtras().getInt("id");
-        Cursor c = bd.rawQuery("SELECT a.id,a.name FROM atividade a WHERE NOT EXISTS " +
+        Cursor c = bd.rawQuery("SELECT a.id,a.nome FROM atividade a WHERE NOT EXISTS " +
                 "(SELECT * FROM ficha f,ficha_atividade fa WHERE a.id=fa.id_atividade AND f.id=fa.id_ficha AND f.id=" + id_ficha + ")", null);
         if (c.moveToFirst()) {
             do {
                 int id = Integer.parseInt(c.getString(c.getColumnIndex("id")));
-                String nome = c.getString(c.getColumnIndex("name"));
+                String nome = c.getString(c.getColumnIndex("nome"));
                 nomeatividades.add(nome);
                 atividades.add(id);
             } while (c.moveToNext());

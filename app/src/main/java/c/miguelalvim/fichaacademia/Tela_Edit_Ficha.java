@@ -1,11 +1,13 @@
 package c.miguelalvim.fichaacademia;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,7 +20,7 @@ public class Tela_Edit_Ficha extends AppCompatActivity {
     EditText txt_nome, txt_vezes;
     Button btt_add_atividade, btnSave;
 
-    ArrayList<Integer> atividades = new ArrayList<>();
+    ArrayList<Atividade> atividades = new ArrayList<>();
     ArrayList<String> nomeatividades = new ArrayList<>();
     ArrayAdapter<String> atividadesAdapter;
     ListView lsatividadesView;
@@ -49,9 +51,10 @@ public class Tela_Edit_Ficha extends AppCompatActivity {
         extras = getIntent().getExtras();
         if(extras!=null){
             @SuppressLint("Recycle") Cursor c = bd.rawQuery("SELECT * FROM ficha WHERE id=" + extras.getInt("id", -1), null);
-            c.moveToFirst();
+            if (c.moveToFirst()) {
             txt_nome.setText(c.getString(c.getColumnIndex("nome")));
-            txt_vezes.setText(c.getString(c.getColumnIndex("vezes_por_semana")));
+                txt_vezes.setText(c.getInt(c.getColumnIndex("vezes_por_semana")));
+            }
         }else{
             finish();
         }
@@ -84,10 +87,27 @@ public class Tela_Edit_Ficha extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch(requestCode) {
             case 0 :{//Nova Atividade selecionada
-                //if (resultCode == Activity.RESULT_OK){
-
-                //}
+                if (resultCode == Activity.RESULT_OK) {
+                    updateNamesList();
+                }
             }break;
+        }
+    }
+
+    private void updateNamesList() {
+        atividades.clear();
+        nomeatividades.clear();
+
+        @SuppressLint("Recycle") Cursor c = bd.rawQuery("SELECT * FROM atividade ", null);
+        if (c.moveToFirst()) {
+            do {
+                int id = Integer.parseInt(c.getString(c.getColumnIndex("id")));
+                String nome = c.getString(c.getColumnIndex("nome"));
+                String aparelho = c.getString(c.getColumnIndex("num_aparelho"));
+                Log.i("DABDAB", "Loaded atividade(id=" + id + "): " + nome + " |" + aparelho);
+                atividades.add(new Atividade(nome, Integer.parseInt(aparelho), id));
+                nomeatividades.add(nome);
+            } while (c.moveToNext());
         }
     }
 }
