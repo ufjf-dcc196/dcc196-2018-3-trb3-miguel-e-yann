@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -80,12 +81,22 @@ public class Tela_Edit_Ficha extends AppCompatActivity {
                 finish();
             }
         });
+        lsatividadesView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                bd.delete("ficha_atividade", "id_atividade="+atividades.get(position).getId()+
+                        " AND id_ficha="+getIntent().getExtras().getInt("id",-1), null);
+                updateNamesList();
+                return  false;
+            }
+        }
+        );
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch(requestCode) {
-            case 0 :{//Nova Atividade selecionada
+            case 0 :{
                 if (resultCode == Activity.RESULT_OK) {
                     updateNamesList();
                 }
@@ -98,16 +109,19 @@ public class Tela_Edit_Ficha extends AppCompatActivity {
         nomeatividades.clear();
 
         //Query para pegar as atividades da ficha; deve se colocar o resultado em uma lista!
-        @SuppressLint("Recycle") Cursor c = bd.rawQuery("SELECT a.id,a.nome,a.num_aparelho FROM ficha_atividade fa,atividade a " +
-                "WHERE fa.id_ficha=" + extras.getInt("id", -1) + " AND a.id = fa.id_ficha", null);
+        @SuppressLint("Recycle") Cursor c = bd.rawQuery("SELECT a.id,a.nome,a.num_aparelho,fa.num_series,fa.num_repeticoes FROM ficha_atividade fa,atividade a " +
+                "WHERE fa.id_ficha=" + extras.getInt("id", -1) + " AND a.id = fa.id_atividade", null);
         if (c.moveToFirst()) {
             do {
                 int id = Integer.parseInt(c.getString(c.getColumnIndex("id")));
                 String nome = c.getString(c.getColumnIndex("nome"));
                 int num_aparelho = c.getInt(c.getColumnIndex("num_aparelho"));
+                int num_series = c.getInt(c.getColumnIndex("num_series"));
+                int num_repeticoes = c.getInt(c.getColumnIndex("num_repeticoes"));
                 Log.i("DABDAB", "Loaded atividade(id=" + id + "): " + nome + " |" + num_aparelho);
                 atividades.add(new Atividade(nome, num_aparelho, id));
-                nomeatividades.add(nome);
+                String aux = nome +" | series: "+num_series+" - rep: "+ num_repeticoes;
+                nomeatividades.add(aux);
             } while (c.moveToNext());
         }
         atividadesAdapter.notifyDataSetChanged();

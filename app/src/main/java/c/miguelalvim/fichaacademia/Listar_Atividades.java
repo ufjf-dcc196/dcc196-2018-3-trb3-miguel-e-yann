@@ -44,8 +44,13 @@ public class Listar_Atividades extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             }
         });
-        //Adicionar aqui o código de seleção da atividade
-        //Retornar o id da atividade selecionada
+        lsatividadesView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+                return false;
+            }
+        });
     }
 
     private void updateNamesList() {

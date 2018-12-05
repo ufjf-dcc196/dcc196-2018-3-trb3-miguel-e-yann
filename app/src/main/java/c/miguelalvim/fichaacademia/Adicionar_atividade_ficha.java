@@ -69,8 +69,8 @@ public class Adicionar_atividade_ficha extends Activity {
                 if (!num_rep.getText().toString().isEmpty() && !num_serie.getText().toString().isEmpty() && id_atv != -1) {
                     Intent result = new Intent();
                     ContentValues vals = new ContentValues();
-                    vals.put("num_repeticoes", num_serie.getText().toString());
-                    vals.put("num_series", Integer.parseInt(num_rep.getText().toString()));
+                    vals.put("num_series", num_serie.getText().toString());
+                    vals.put("num_repeticoes", Integer.parseInt(num_rep.getText().toString()));
                     vals.put("id_atividade", id_atv);
                     vals.put("id_ficha", id_ficha);
 

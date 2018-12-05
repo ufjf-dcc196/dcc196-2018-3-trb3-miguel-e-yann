@@ -20,4 +20,8 @@ public class Ficha {
     public void removeAtividade(Atividade a) {
         atividades.remove(a);
     }
+
+    public int getId() {
+        return id;
+    }
 }

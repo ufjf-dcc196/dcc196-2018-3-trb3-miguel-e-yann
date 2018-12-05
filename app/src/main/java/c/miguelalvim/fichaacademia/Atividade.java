@@ -9,4 +9,8 @@ public class Atividade {
         numero = i;
         this.id = id;
     }
+
+    public int getId() {
+        return id;
+    }
 }

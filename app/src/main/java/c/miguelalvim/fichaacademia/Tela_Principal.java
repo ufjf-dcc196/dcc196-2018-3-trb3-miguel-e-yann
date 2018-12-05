@@ -34,13 +34,13 @@ public class Tela_Principal extends AppCompatActivity {
         //Iniciando o Banco de Dados
         bdHandler = new BDHandler(getApplicationContext());
         bd = bdHandler.getReadableDatabase();
-        updateNamesList();
 
         //Adapter
         lsFichasView = findViewById(R.id.lsListaFichas);
         aaFichasAdapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, nomefichas);
         lsFichasView.setAdapter(aaFichasAdapter);
-        aaFichasAdapter.notifyDataSetChanged();
+        updateNamesList();
+
 
         //Botões
         btt_Criar_Ficha = findViewById(R.id.btt_Criar_Ficha);
@@ -68,6 +68,15 @@ public class Tela_Principal extends AppCompatActivity {
                 startActivityForResult(intent, 2);//Request code 2 = tela de edição de ficha
             }
         });
+        lsFichasView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                bd.delete("ficha_atividade","id_ficha="+fichas.get(position).getId(), null);
+                bd.delete("ficha","id="+fichas.get(position).getId(), null);
+                updateNamesList();
+                return true;
+            }
+        });
 
     }
 
@@ -86,6 +95,8 @@ public class Tela_Principal extends AppCompatActivity {
                 nomefichas.add(nome);
             } while (c.moveToNext());
         }
+        aaFichasAdapter.notifyDataSetChanged();
+
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
