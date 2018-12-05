@@ -1,9 +1,13 @@
 package c.miguelalvim.fichaacademia;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -64,5 +68,29 @@ public class Tela_Principal extends AppCompatActivity {
                 startActivityForResult(intent, 2);//Request code 2 = tela de edição de ficha
             }
         });
+
+    }
+
+    private void updateNamesList() {
+        fichas.clear();
+        nomefichas.clear();
+
+        @SuppressLint("Recycle") Cursor c = bd.rawQuery("SELECT * FROM ficha ", null);
+        if (c.moveToFirst()) {
+            do {
+                int id = Integer.parseInt(c.getString(c.getColumnIndex("id")));
+                String name = c.getString(c.getColumnIndex("name"));
+                String vezes = c.getString(c.getColumnIndex("vezes_por_semana"));
+                Log.i("DABDAB", "Loaded Ficha(id=" + id + "): " + name + " |" + vezes);
+                fichas.add(new Ficha(name, Integer.parseInt(vezes), id));
+                nomefichas.add(name);
+            } while (c.moveToNext());
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            updateNamesList();
+        }
     }
 }
