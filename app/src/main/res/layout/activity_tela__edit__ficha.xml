@@ -9,15 +9,14 @@
     <ListView
         android:id="@+id/lsListaAtvFicha"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="238dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="6dp"
         android:layout_marginRight="6dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_add_atividade"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_vezes" />
 
@@ -25,12 +24,11 @@
         android:id="@+id/btnSave"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:text="Salvar"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_add_atividade" />
 
     <EditText
         android:id="@+id/edit_nome"
@@ -68,10 +66,10 @@
         android:id="@+id/btn_add_atividade"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp"
+        android:layout_marginTop="8dp"
         android:text="Adicionar atividades"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lsListaAtvFicha" />
 </android.support.constraint.ConstraintLayout>

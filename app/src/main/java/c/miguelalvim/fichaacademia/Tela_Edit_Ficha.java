@@ -47,11 +47,10 @@ public class Tela_Edit_Ficha extends AppCompatActivity {
         lsatividadesView = findViewById(R.id.lsListaAtvFicha);
 
         extras = getIntent().getExtras();
-        updateNamesList();
 
         atividadesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, nomeatividades);
         lsatividadesView.setAdapter(atividadesAdapter);
-        atividadesAdapter.notifyDataSetChanged();
+        updateNamesList();
 
 
         if(extras!=null){
@@ -109,8 +108,8 @@ public class Tela_Edit_Ficha extends AppCompatActivity {
                 Log.i("DABDAB", "Loaded atividade(id=" + id + "): " + nome + " |" + num_aparelho);
                 atividades.add(new Atividade(nome, num_aparelho, id));
                 nomeatividades.add(nome);
-
             } while (c.moveToNext());
         }
+        atividadesAdapter.notifyDataSetChanged();
     }
 }
