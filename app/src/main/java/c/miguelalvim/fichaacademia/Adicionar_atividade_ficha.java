@@ -32,9 +32,15 @@ public class Adicionar_atividade_ficha extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adicionar_atividade_ficha);
+        //find
         adicionar = findViewById(R.id.btn_add);
         num_rep = findViewById(R.id.num_rep);
         num_serie = findViewById(R.id.num_serie);
+        lsatividadesView = findViewById(R.id.lsListaAtividades);
+
+        //DB
+        bdHandler = new BDHandler(getApplicationContext());
+        bd = bdHandler.getReadableDatabase();
 
         id_ficha = getIntent().getExtras().getInt("id");
         Cursor c = bd.rawQuery("SELECT a.id,a.nome FROM atividade a WHERE NOT EXISTS " +
@@ -47,13 +53,9 @@ public class Adicionar_atividade_ficha extends Activity {
                 atividades.add(id);
             } while (c.moveToNext());
         }
-        lsatividadesView = findViewById(R.id.lsListaAtividades);
         atividadesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, nomeatividades);
         lsatividadesView.setAdapter(atividadesAdapter);
         atividadesAdapter.notifyDataSetChanged();
-
-        bdHandler = new BDHandler(getApplicationContext());
-        bd = bdHandler.getReadableDatabase();
 
         lsatividadesView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -78,7 +80,9 @@ public class Adicionar_atividade_ficha extends Activity {
                         setResult(RESULT_OK, result);
                         Toast.makeText(Adicionar_atividade_ficha.this, "Adição de atividade concluida com exito", Toast.LENGTH_SHORT).show();
                     }
-                }
+                    finish();
+                } else
+                    Toast.makeText(Adicionar_atividade_ficha.this, "Há dados não inseridos", Toast.LENGTH_SHORT).show();
             }
         });
     }

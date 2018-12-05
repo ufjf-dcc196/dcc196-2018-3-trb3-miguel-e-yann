@@ -1,6 +1,7 @@
 package c.miguelalvim.fichaacademia;
 
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -20,18 +21,27 @@ public class BDHandler extends SQLiteOpenHelper {
                 "CREATE TABLE atividade (id INTEGER PRIMARY KEY AUTOINCREMENT," +
                         "nome TEXT, num_aparelho INTEGER)"
         );
+
+        ContentValues vals = new ContentValues();
+        vals.put("nome", "Supino");
+        vals.put("num_aparelho", 12);
+        db.insert("atividade", null, vals);
+
         db.execSQL(
                 "CREATE TABLE ficha (id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         "nome TEXT, vezes_por_semana INTEGER)"
         );
+        vals.clear();
+        vals.put("nome", "maromba");
+        vals.put("vezes_por_semana", 7);
+        db.insert("ficha", null, vals);
+
         db.execSQL(
                 "CREATE TABLE ficha_atividade (id_atividade INTEGER, id_ficha INTEGER, num_repeticoes INTEGER, num_series INTEGER, " +
                         "FOREIGN KEY(id_atividade) REFERENCES atividade(id)," +
                         "FOREIGN KEY(id_ficha) REFERENCES ficha(id)," +
                         "PRIMARY KEY(id_atividade, id_ficha))"
         );
-        //Populate for DEBUG
-        //db.rawQuery("INSERT INTO pessoa values('Miguel Alvim','12312312312','nope@nopes.n')",null);
     }
 
     @Override

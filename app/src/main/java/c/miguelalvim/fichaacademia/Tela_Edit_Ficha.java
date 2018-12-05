@@ -35,25 +35,32 @@ public class Tela_Edit_Ficha extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela__edit__ficha);
 
-        lsatividadesView = findViewById(R.id.lsListaAtvFicha);
-        atividadesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, nomeatividades);
-        lsatividadesView.setAdapter(atividadesAdapter);
-        atividadesAdapter.notifyDataSetChanged();
-
         //BD
         bdHandler = new BDHandler(getApplicationContext());
         bd = bdHandler.getReadableDatabase();
+
+        //finds
         txt_nome = findViewById(R.id.edit_nome);
         txt_vezes = findViewById(R.id.edit_vezes);
         btt_add_atividade = findViewById(R.id.btn_add_atividade);
         btnSave = findViewById(R.id.btnSave);
+        lsatividadesView = findViewById(R.id.lsListaAtvFicha);
 
         extras = getIntent().getExtras();
+        updateNamesList();
+
+        atividadesAdapter = new ArrayAdapter<>(this, android.R.layout.simple_expandable_list_item_1, nomeatividades);
+        lsatividadesView.setAdapter(atividadesAdapter);
+        atividadesAdapter.notifyDataSetChanged();
+
+
         if(extras!=null){
             @SuppressLint("Recycle") Cursor c = bd.rawQuery("SELECT * FROM ficha WHERE id=" + extras.getInt("id", -1), null);
             if (c.moveToFirst()) {
-            txt_nome.setText(c.getString(c.getColumnIndex("nome")));
-                txt_vezes.setText(c.getInt(c.getColumnIndex("vezes_por_semana")));
+                txt_nome.setText(c.getString(c.getColumnIndex("nome")));
+                txt_vezes.setText(Integer.toString(c.getInt(c.getColumnIndex("vezes_por_semana"))));
+                txt_nome.setEnabled(false);
+                txt_vezes.setEnabled(false);
             }
         }else{
             finish();
@@ -67,20 +74,13 @@ public class Tela_Edit_Ficha extends AppCompatActivity {
                 startActivityForResult(intent,0);//Request code 0 = atividade selecionada
             }
         });
-
-
-
-        //Query para pegar as atividades da ficha; deve se colocar o resultado em uma lista!
-        @SuppressLint("Recycle") Cursor c = bd.rawQuery("SELECT a.id,a.nome FROM ficha_atividade fa,atividade a " +
-                "WHERE fa.id_ficha="+extras.getInt("id", -1)+" AND a.id = fa.id_ficha",null);
-        if (c.moveToFirst()){
-            do {
-                int id = Integer.parseInt(c.getString(c.getColumnIndex("id")));
-                String name = c.getString(c.getColumnIndex("nome"));
-                //Adicionar aqui a aparte de população da lista
-
-            } while(c.moveToNext());
-        }
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setResult(RESULT_OK);
+                finish();
+            }
+        });
     }
 
     @Override
@@ -98,15 +98,18 @@ public class Tela_Edit_Ficha extends AppCompatActivity {
         atividades.clear();
         nomeatividades.clear();
 
-        @SuppressLint("Recycle") Cursor c = bd.rawQuery("SELECT * FROM atividade ", null);
+        //Query para pegar as atividades da ficha; deve se colocar o resultado em uma lista!
+        @SuppressLint("Recycle") Cursor c = bd.rawQuery("SELECT a.id,a.nome,a.num_aparelho FROM ficha_atividade fa,atividade a " +
+                "WHERE fa.id_ficha=" + extras.getInt("id", -1) + " AND a.id = fa.id_ficha", null);
         if (c.moveToFirst()) {
             do {
                 int id = Integer.parseInt(c.getString(c.getColumnIndex("id")));
                 String nome = c.getString(c.getColumnIndex("nome"));
-                String aparelho = c.getString(c.getColumnIndex("num_aparelho"));
-                Log.i("DABDAB", "Loaded atividade(id=" + id + "): " + nome + " |" + aparelho);
-                atividades.add(new Atividade(nome, Integer.parseInt(aparelho), id));
+                int num_aparelho = c.getInt(c.getColumnIndex("num_aparelho"));
+                Log.i("DABDAB", "Loaded atividade(id=" + id + "): " + nome + " |" + num_aparelho);
+                atividades.add(new Atividade(nome, num_aparelho, id));
                 nomeatividades.add(nome);
+
             } while (c.moveToNext());
         }
     }

@@ -64,7 +64,7 @@ public class Tela_Principal extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(Tela_Principal.this, Tela_Edit_Ficha.class);
-                intent.putExtra("id", id);
+                intent.putExtra("id", fichas.get(position).id);
                 startActivityForResult(intent, 2);//Request code 2 = tela de edição de ficha
             }
         });
